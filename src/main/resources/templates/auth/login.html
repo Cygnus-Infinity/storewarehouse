@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        .error {
+            color: #FF1C19;
+        }
+        .success {
+            color: darkolivegreen;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <div th:if="${redirection}">
+        <p th:text="${redirectionMessage}" th:classappend="${success} ? success : error">Sample Text</p>
+    </div>
+    <form action="#" th:action="@{/login}" th:object="${userForm}" method="post">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" th:field="*{userName}" /></td>
+                <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Username Error</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" th:field="*{encryptedPassword}" /></td>
+                <td th:if="${#fields.hasErrors('encryptedPassword')}" th:errors="*{encryptedPassword}">Password Error</td>
+            </tr>
+            <tr>
+                <td>
+                    <span th:text="${error}" style="font-size: 20; color: #FF1C19;">Login Failed Message</span>
+
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
